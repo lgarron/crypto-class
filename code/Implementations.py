@@ -1,5 +1,18 @@
 from SPCS import E, D, h, toHex, fromHex, newRandomKey, split, xor, b, num_to_block, block_to_num
 
+"""
+This file was written entirely during live coding
+sessions in a crypto class for high school students.
+( http://spcs.stanford.edu/ )
+
+Apart from day breaks, nothing has been added or removed,
+so excuse the organization. The crypto should hopefully be
+correct, though.
+
+You can also definitely see traces of July 4th
+and the World Cup in this file. :-)
+
+"""
 
 
 print "Hello, World!"
