@@ -33,7 +33,9 @@ I also had access to preliminary notes and a syllabus from a previous iteration 
 
 ## Homeworks
 
-I had to create most of these "from scratch". A few of them are taken from CS255.
+I had to create most of these "from scratch".
+
+A few of the problems are taken from CS255.
 
 ## Lecture Notes
 
