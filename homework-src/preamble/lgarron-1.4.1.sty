@@ -91,4 +91,5 @@
 \newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
 \newcommand{\tod}[2]{\textcolor{red}{\textbf{[TODO: {\it{#1}} #2]}}}
 \newcommand{\td}[1]{\textcolor{red}{\textbf{[TODO: {\it #1}]}}}
-\newcommand{\sol}[1]{{\textcolor{red}[\textbf[SOLUTION: {#1}]]}}
+\newenvironment{solution}{}{}
+\newcommand{\sol}[1]{\begin{solution}\color{red}\textbf[SOLUTION: {#1}]\end{solution}}

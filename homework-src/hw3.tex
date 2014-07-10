@@ -11,10 +11,6 @@
 
 \lhead{}
 
-\let\sol=\undefined
-%\newcommand{\sol}[1]{\color{red}\textbf[SOLUTION: {#1}]}
-\newcommand{\sol}[1]{}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -51,14 +47,15 @@ $f : S \to S$ where:
 \begin{itemize}
 \item $S$ is the set of elements of \emph{any} group $G = (S, \star)$
 \item $f(x) = x^{-1}$ (i.e. $f(x) =$ the inverse of $x$ in $G$)
-\item $a \star_1 b = a \star_2 b = a \star b$
+\item $a \star_1 b = a \star b$
+\item $a \star_2 b = b \star a$
 \end{itemize}
 
 \section{Semi-Generator}
 
 Suppose $g$ is a generator of a group $G$. (Recall: This means that the powers of $g$ include every element in $G$.)
 
-Show that $g^{-1}$ ``generates'' at least half the elements of $G$.\\
+Show that $g^{-1}$ is also a generator.\\
 
 (Hint: To convince yourself, try $G = (\Z_7, +)$ and $g=3$. Use problem \ref{inv_hom} to prove it for all groups.)
 
@@ -237,6 +234,6 @@ Suppose the binary representation of $x$ has $x_i$ at the $2^i$'s place. Try the
 \item Output the final value of $a$.
 \end{itemize}
 
-Can you explain why it swords?
+Can you explain why it works?
 
 \end{document}

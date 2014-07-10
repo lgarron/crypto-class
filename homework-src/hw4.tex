@@ -11,10 +11,6 @@
 
 \lhead{}
 
-\let\sol=\undefined
-\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
-%\newcommand{\sol}[1]{}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -23,7 +19,7 @@
 
 \section{ElGamal Encryption}
 
-Recall ElGamal:
+Recall ElGamal Encryption:
 
 
 \subsubsection*{$KeyGen()$}
@@ -155,43 +151,6 @@ Show that in problem \ref{rsa_reuse}, Alice can actually factor $N$ to recover $
 
 \sol{See page 3 of \href{https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf}{https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf} (``Twenty Years of Attacks on the RSA Cryptosystem'')}
 
-
-\section{RSA Blinding}
-
-\subsection{}
-
-Let's show that it's possible to sign a message using RSA without knowing what the message is.
-
-Suppose Bob has a private key $(N, e)$ and Alice wants him to sign $m$. She can do the following:
-
-\begin{itemize}
-\item Select a random $r \in \Z_N^*$.
-\item Calculate $r' = r^d$ This is the \emph{blinding value}.
-\item Ask Bob to sign $m \* r'$ to get $s = Sign(sk, m \* r')$.
-\item Perform a multiplication on $s$ to get a valid signature of $E(sk, m)$.
-\end{itemize}
-
-Find what they need to multiply in the last step to make this work, and argue why the whole procedure prevents you from knowing anything about $m$.\\
-
-Why do you think this is called ``blinding''?
-
-\sol{
-$s$
-}
-
-\subsection{}
-
-Consider the following procedure.
-
-\begin{itemize}
-\item Select a random $r \in \Z_N^*$. This is the \emph{blinding value}
-\item Perform a multiplication on $m$ (probably using $r$) to get a value $m'$.
-\item Ask you to sign $m'$. to get $s = E(sk, m')$
-\end{itemize}
-
-Can you find a multiplication for the second step so that $s$ is a valid signature for $m$ without any additional calculations for them?
-
-
 \section{ElGamal Rerandomization}
 
 \label{rerandomize}
@@ -204,7 +163,7 @@ $$
 
 where $x \rf Exponents$ and $h = g^x$.
 
-Take $z$ to be any valid exponent. Show that it is possible for someone (who doesn't know $x$) to modify this so that the result $(c_1, c_2)$ is the same as if the encryptor used $y' = y * z$ instead of $y$. That is, transform the original ciphertext into a valid ElGamal ciphertext of the format:
+Take $z$ to be any valid exponent. Show that it is possible for someone (who doesn't know $x$) to modify this so that the result $(c_1, c_2)$ is the same as if the encryptor used $y' = y + z$ instead of $y$. That is, transform the original ciphertext into a valid ElGamal ciphertext of the format:
 
 $$
 (g^{y'}, m \* h^{y'})
@@ -212,7 +171,7 @@ $$
 
 Verify that this decrypts.
 
-\section{ElGamal: Additively Homomorphic Encryption}
+\section{ElGamal: Multiplicatively Homomorphic Encryption}
 
 Let $\mathcal{E}(m)$ be an algorithm that encrypts $m$ to a specific person (i.e. choose values for $G, g$, and $h$ and use the same ones every time). If you run it twice on the different messages $m_1$, $m_2$, you get:
 
@@ -221,7 +180,7 @@ Let $\mathcal{E}(m)$ be an algorithm that encrypts $m$ to a specific person (i.e
 \item $a_2 = (g^{r_2}, m_1 \* h^{r_2})$
 \end{itemize}
 
-Come up with an algorithm $\mathcal{E'}(a_1, a_2)$ that produces a valid encryption of the message $m_1 + m_2$
+Come up with an algorithm $\mathcal{E'}(a_1, a_2)$ that produces a valid encryption of the message $m_1 \* m_2$
 
 
 Note that if you were doing this in practice, you should make sure to rerandomize (see problem \ref{rerandomize}).
