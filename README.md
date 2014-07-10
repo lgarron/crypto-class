@@ -23,6 +23,7 @@ I also had access to preliminary notes and a syllabus from a previous iteration 
 ## Live Code (from class)
 
 - ElGamal Encryption in Mathematica
+- Cryptographic Advantage: Coin Game Simulation
 - [Block Ciphers](code/Implementations.py)
   - Deterministic CTR (deterministic and randomized),
   - CBC
@@ -30,6 +31,7 @@ I also had access to preliminary notes and a syllabus from a previous iteration 
   - Authenticated Encryption (CBC with CBC-MAC)
     - Simple key stretching for single-key AE.
  - Encrypting a file on the file system.
+
 
 ## Homeworks
 
