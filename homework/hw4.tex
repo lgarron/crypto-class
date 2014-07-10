@@ -1,0 +1,326 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 4}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
+%\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+
+
+\section{ElGamal Encryption}
+
+Recall ElGamal:
+
+
+\subsubsection*{$KeyGen()$}
+
+
+\begin{itemize}
+\item $p \in \mathbb{P}$
+\item $g \in \Z_p$ is a generator
+\item $x \rf \{1, ..., p-1\}$
+\item $h = g^x$
+\item $pk$ $= (p, g, h)$
+\item $sk$ $= (x)$
+\end{itemize}
+
+\subsubsection*{$E(pk, m)$}
+
+
+\begin{itemize}
+\item $y \rf \{1, ..., p-1\}$
+\item Send the ciphertext $c = (g^y, m \* h^y)$
+\end{itemize}
+
+\subsubsection*{$D(sk, c)$}
+
+
+\begin{itemize}
+\item Label the parts of the ciphertext as $c = (c_1, c_2)$
+\item Decrypt the message as: $c_2 \* ({c_1}^x)^{-1}$
+\end{itemize}
+
+
+\subsection{}
+
+
+Consider the following ElGamal setup:
+
+\begin{itemize}
+\item $pk = (G = \Z_{31}^*, g = 3, h = 6)$
+\item $sk = (x = 25)$
+\end{itemize}
+
+Decrypt the following cipher texts:
+
+\begin{itemize}
+\item $(18, 19)$ \sol{10}
+\item $(22, 23)$ \sol{14}
+\item $(19, 2)$ \sol{10}
+\end{itemize}
+
+\subsection{}
+
+
+Ask a partner to select a message $m \in \Z_{31}^*$ and encrypt it for you. Decrypt it.
+
+\subsection{}
+
+How many possible ciphertext pairs $(c_1, c_2)$ are there for a given $p$ and a specific value of $x$. How many valid values of $x$ are there?
+
+
+\sol{
+\begin{itemize}
+\item $(p-1)^2$
+\item $(p-1)$
+\end{itemize}
+
+
+}
+
+\section{RSA without $p$ or $q$}
+
+\subsection{}
+
+
+\label{rsa_p_q}
+
+Suppose you have a private RSA key with $p$ and $q$ missing, but you have $\varphi(N)$. That is, you have:
+
+$$\Big(N, e, \varphi(N)\Big)$$
+
+Show that you can still find $d$ and decrypt messages encrypted as $m^e ~(\bmod~N)$.
+
+\sol{
+$$d = e^{-1} \bmod~N$$
+
+You can find $e$ using the Extended Euclidean Algorithm.
+}
+
+\subsection{}
+
+Apply your solution to $\Big(N = 91,~e = 5, varphi(N) = 72\Big)$
+
+\section{Reusing RSA Primes}
+
+\label{rsa_reuse}
+
+In class, we showed that it's safe for everyone to use the same group and generator. Let's show that sharing the same modulus $N$ doesn't work for RSA.
+
+Suppose we try following:
+
+\begin{itemize}
+\item Generate $N = p \* q$ as in RSA.
+\item Generate \emph{two} pairs of exponents (just do this step from normal RSA two separate times): $(e_a, d_a)$ and $(e_b, d_b)$
+\item Publish $pk_a = (N, e_a)$ and give $sk_a = (N, e_a, d_a)$ to Alice.
+\item Publish $pk_b = (N, e_b)$ and give $sk_b = (N, e_b, d_b)$ to Bob.
+\end{itemize}
+
+Our goal is that anyone can encrypt to either Alice or Bob (using their corresponding public key), but neither Alice nor Bob can read messages intended for the other.
+
+\begin{itemize}
+\item Why can't we give $p$ or $q$ to Alice (or Bob)?
+\item Verify that Alice and Bob can still decrypt messages intended for them.
+\end{itemize}
+
+Now, show that the system is broken: Alice can actually decrypt any message for Bob.\\
+
+(Hint: First, show that Alice can use her private key to find a number that is $\equiv 1 \mod \varphi(N)$. Then use problem \ref{rsa_p_q} to show that she can find a decryption exponent $d_b'$ that allows her to decrypt messages by Bob using normal RSA decryption. Is it necessarily true that $d_b = d_b'$?)
+
+\sol{
+Use the Extended Euclidean Algorithm to find $e \* x + k \* \varphi(N) \* y = 1$.
+
+}
+
+
+\section{Even more Hardcore RSA}
+
+Show that in problem \ref{rsa_reuse}, Alice can actually factor $N$ to recover $p$ and $q$.
+
+(This one is hard.)
+
+\sol{See page 3 of \href{https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf}{https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf} (``Twenty Years of Attacks on the RSA Cryptosystem'')}
+
+
+\section{RSA Blinding}
+
+\subsection{}
+
+Let's show that it's possible to sign a message using RSA without knowing what the message is.
+
+Suppose Bob has a private key $(N, e)$ and Alice wants him to sign $m$. She can do the following:
+
+\begin{itemize}
+\item Select a random $r \in \Z_N^*$.
+\item Calculate $r' = r^d$ This is the \emph{blinding value}.
+\item Ask Bob to sign $m \* r'$ to get $s = Sign(sk, m \* r')$.
+\item Perform a multiplication on $s$ to get a valid signature of $E(sk, m)$.
+\end{itemize}
+
+Find what they need to multiply in the last step to make this work, and argue why the whole procedure prevents you from knowing anything about $m$.\\
+
+Why do you think this is called ``blinding''?
+
+\sol{
+$s$
+}
+
+\subsection{}
+
+Consider the following procedure.
+
+\begin{itemize}
+\item Select a random $r \in \Z_N^*$. This is the \emph{blinding value}
+\item Perform a multiplication on $m$ (probably using $r$) to get a value $m'$.
+\item Ask you to sign $m'$. to get $s = E(sk, m')$
+\end{itemize}
+
+Can you find a multiplication for the second step so that $s$ is a valid signature for $m$ without any additional calculations for them?
+
+
+\section{ElGamal Rerandomization}
+
+\label{rerandomize}
+
+Recall that an ElGamal encryption is of the form
+
+$$
+(g^y, m \* h^y)
+$$
+
+where $x \rf Exponents$ and $h = g^x$.
+
+Take $z$ to be any valid exponent. Show that it is possible for someone (who doesn't know $x$) to modify this so that the result $(c_1, c_2)$ is the same as if the encryptor used $y' = y * z$ instead of $y$. That is, transform the original ciphertext into a valid ElGamal ciphertext of the format:
+
+$$
+(g^{y'}, m \* h^{y'})
+$$
+
+Verify that this decrypts.
+
+\section{ElGamal: Additively Homomorphic Encryption}
+
+Let $\mathcal{E}(m)$ be an algorithm that encrypts $m$ to a specific person (i.e. choose values for $G, g$, and $h$ and use the same ones every time). If you run it twice on the different messages $m_1$, $m_2$, you get:
+
+\begin{itemize}
+\item $a_1 = (g^{r_1}, m_1 \* h^{r_1})$
+\item $a_2 = (g^{r_2}, m_1 \* h^{r_2})$
+\end{itemize}
+
+Come up with an algorithm $\mathcal{E'}(a_1, a_2)$ that produces a valid encryption of the message $m_1 + m_2$
+
+
+Note that if you were doing this in practice, you should make sure to rerandomize (see problem \ref{rerandomize}).
+
+
+%Why can't ElGamal be used as sig?
+%ElGamal what is it missing compared to Cramer-Shoup?
+
+
+\section{Programming}
+
+If you know how to program, implement one of these: 
+
+\begin{itemize}
+\item Diffie-Hellman
+\item RSA
+\item ElGamal.
+\end{itemize}
+
+
+Talk to Conrad, Aaron, or Lucas if you'd like permission to work on this at the computers during study time.
+
+
+\newpage
+
+(Do problems 1-8 first. We'll talk about the Chinese Remainder Theorem during study time if you finish all the other problems. :-P)
+
+\section{Chinese Remainder Theorem}
+
+Find numbers that satisfy the following congruences:
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 2 ~(\bmod~5)$
+\item $x \equiv 1 ~(\bmod~7)$
+\end{itemize}
+
+\sol{22}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 9 ~(\bmod~13)$
+\item $x \equiv 4 ~(\bmod~24)$
+\end{itemize}
+
+\sol{100}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 1 ~(\bmod~2)$
+\item $x \equiv 1 ~(\bmod~3)$
+\item $x \equiv 2 ~(\bmod~5)$
+\end{itemize}
+
+\sol{7}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 4 ~(\bmod~7)$
+\item $x \equiv 3 ~(\bmod~11)$
+\item $x \equiv 8 ~(\bmod~13)$
+\end{itemize}
+
+\sol{333}
+
+\section{Chinese Remainder Theorem with Friends}
+
+Pick a partner you haven't worked with before.
+
+Ask them to select a number $x$ from $1$ to $60$ and tell you:
+
+\begin{itemize}
+\item $x ~(\bmod~3)$
+\item $x ~(\bmod~4)$
+\item $x ~(\bmod~5)$
+\end{itemize}
+
+Now, calculate $x$ (if you get something outside of the range $1, ..., 60$, remember that you can add ay multiple of 60 and the congruences remain valid).
+
+
+\section{Speeding up RSA}
+
+Do an RSA encryption with a partner as in yesterday's homework. However, when you decrypt, calculate:
+
+\begin{itemize}
+\item $c^m \bmod~p$
+\item $c^m \bmod~q$
+\end{itemize}
+
+Now, use these values to calculate $c^m \bmod~N$ using the Chinese Remainder Theorem.
+
+
+
+
+
+
+
+\end{document}

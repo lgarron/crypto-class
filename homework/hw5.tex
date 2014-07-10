@@ -1,0 +1,161 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 5}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+%\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
+\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+
+\section{SPCS}
+
+\subsection{}
+
+\section{Chinese Remainder Theorem}
+
+Find numbers that satisfy the following congruences:
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 2 ~(\bmod~5)$
+\item $x \equiv 1 ~(\bmod~7)$
+\end{itemize}
+
+\sol{22}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 9 ~(\bmod~13)$
+\item $x \equiv 4 ~(\bmod~24)$
+\end{itemize}
+
+\sol{100}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 1 ~(\bmod~2)$
+\item $x \equiv 1 ~(\bmod~3)$
+\item $x \equiv 2 ~(\bmod~5)$
+\end{itemize}
+
+\sol{7}
+
+\subsection{}
+
+\begin{itemize}
+\item $x \equiv 4 ~(\bmod~7)$
+\item $x \equiv 3 ~(\bmod~11)$
+\item $x \equiv 8 ~(\bmod~13)$
+\end{itemize}
+
+\sol{333}
+
+\section{Chinese Remainder Theorem with Friends}
+
+Pick a partner you haven't worked with before.
+
+Ask them to select a number $x$ from $1$ to $60$ and tell you:
+
+\begin{itemize}
+\item $x ~(\bmod~3)$
+\item $x ~(\bmod~4)$
+\item $x ~(\bmod~5)$
+\end{itemize}
+
+Now, calculate $x$ (if you get something outside of the range $1, ..., 60$, remember that you can add ay multiple of 60 and the congruences remain valid).
+
+
+\section{Speeding up RSA}
+
+Do an RSA encryption with a partner as in previous homeworks. However, when you decrypt, calculate:
+
+\begin{itemize}
+\item $c^d \bmod~p$
+\item $c^d \bmod~q$
+\end{itemize}
+
+Now, use these values to calculate $c^d \bmod~N$ using the Chinese Remainder Theorem.
+
+\section{Factoring}
+
+\subsection{}
+
+Factor the following numbers using trial division (you can use a calculator, but don't use a function that factors numbers for you):
+
+\begin{itemize}
+\item $34111$
+\item $11121$
+\item $1001$
+\item $483$
+\end{itemize}
+
+Make sure every factor you end up with is prime.
+
+\subsection{}
+
+
+Use the difference of two squares to factor the following numbers:
+
+\begin{itemize}
+\item 323 \sol{(18+1)(18-1)}
+\item 105 \sol{(13+8)(13-8)}
+\item 221 \sol{(13+8)(13-8)}
+\item 8099 \sol{(93+4)(93-4)}
+\end{itemize}
+
+\subsection{}
+
+Use the Fermat primality test to find witnesses and prove numbers from the previous section composite.
+
+
+\section{RSA Blind Signatures}
+
+\subsection{}
+
+Let's show that it's possible to sign a message using RSA without knowing what the message is.
+
+Suppose Bob has a private key $(N, e)$ for the RSA signature scheme, and Alice wants him to sign $m$. Alice does the following:
+
+\begin{itemize}
+\item Select a random $r \in \Z_N^*$.
+\item Calculate $r' = r^d$ This is the \emph{blinding value}.
+\item Blind $m$ using $r'$ to by multiplying: $m' = m \* r'$.
+\item Ask Bob to sign $m'$ to get $s' = Sign(sk, m')$.
+\item (Convert $s'$ into a valid signature of $s$.)
+\end{itemize}
+
+Calculate the value of $s'$ in terms of  $m$, $r$, and the RSA parameters $(N, e, d)$. Use this to figure out sweat should go in the last step. That is, how Alice can use $s'$ to get a valid signature $s$ that will pass verification:
+
+$$\text{Verify}(pk, s, m) = \Big( m \overset{?}{=} s^d \bmod~N \Big)$$
+
+Explain why it is impossible for Bob to find out what message $m$ he was signing if he doesn't know $r$ or $r'$.
+
+In particular, can you show that it is \emph{completely} impossible for Bob to get any information about $m$? (Except that $m \in \Z_n$, which he already knows.)
+
+
+\subsection{}
+
+Try this operation with a partner.
+
+\subsection{}
+
+Is this cool or what?
+
+
+\end{document}

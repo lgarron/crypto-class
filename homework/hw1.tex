@@ -1,0 +1,200 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 1}
+\rhead{}
+
+\lhead{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+
+If you want to click on any of the links, you can find this at \href{https://garron.net/spcs/}{garron.net/spcs}
+
+Today's homework is less math and a bit more exploring. You don't have to do everything. Make sure to do the math, but feel free to try the rest in any order.
+
+
+\section{GCD}
+
+
+Recall Euclid's Algorithm for computing $GCD(A, B)$:
+
+\begin{itemize}
+\item Subtract the larger number from the smaller number as many times as possible and replace the larger one with it.
+\item Continue until $A = B$
+\end{itemize}
+
+Compute the GCD of the following and show your work.
+
+\begin{itemize}
+\item $GCD(4, 30)$
+\item $GCD(85, 136)$
+\item $GCD(4, 7)$
+\item $GCD(104, 144)$
+\item $GCD(34, 55)$
+\end{itemize}
+
+Now, do the same for the Extended Euclidean Algorithm, i.e. write each of these as:
+
+$$
+A \* X + B \* Y = GDC(A, B)
+$$
+
+\section{Caesar Cipher}
+
+Sometimes the Caesar Cipher encryption of one English word becomes another word.
+
+For example, the world COLD becomes FROG with a shift key of $k = 3$.
+
+Figure out which word each of these can be encrypted to. Write down the encrypted word and the shift key:
+
+\begin{itemize}
+\item FOLK \sol{IRON, 3}
+\item SLEEP \sol{BUNNY, 9}
+\item WITS \sol{COZY, 10}
+\item DAZED \sol{SPOTS, 11}
+\end{itemize}
+
+Do the same for at least \un{3} of these next ones. Try working with partners, and pick words that other teams aren't working on:
+
+\begin{itemize}
+\item ALOHAS \sol{GRUNGY, 6}
+\item ARENA \sol{RIVER, 17}
+\item CUBED \sol{MELON, 16}
+\item FAKE \sol{TOYS, 14}
+\item FERNS \sol{BANJO, 22}
+\item INGOT \sol{CHAIN, 20}
+\item JEDI \sol{TONS, 10}
+\item LATTE \sol{FUNNY, 20}  
+\item LAYOUT \sol{FUSION, 20}
+\item MEET \sol{WOOD, 10}
+\item OVALS \sol{HOTEL, 19}
+\end{itemize}
+
+\section{Other Kinds of Crypto}
+
+In class, we discussed, confidentiality, authentication, and integrity. There are many ways to trade these off. Here is an example:
+
+\begin{itemize}
+\item There is a central server that shares with everyone. In order to send a message to anyone, you send a key to the server, and the server encrypts it to that person.
+\item This can preserve confidentiality, authentication, and integrity between you and the receiver, except that the server also sees the message.
+\item Advantage: You only need to know one key to communicate with anyone.
+\item Disadvantage: If the server doesn't work, you can't send messages.
+\item Disadvantage: If someone hacks the server, they can see your messages (breaks confidentiality).
+\end{itemize}
+
+You don't have to be as detailed, but try to come up with something as creative and different from the systems we discussed as possible. Describe how it works, what kind of confidentiality/authentication/integrity is has
+It doesn't have to be realistic, but try to make it useful.
+
+Some ideas that you can use:
+
+\begin{itemize}
+\item You don't have to know whom you're sending a message.
+\item Anything that usually requires one person requires multiple people.
+\item The encrypted message can be modified in some useful way.
+\end{itemize}
+
+
+\section{Alphabetic Shift Tool}
+
+Come up with a tool that allows you to shift the alphabet by a given key easily.
+
+For example, you could use rotating disks or sliding rulers.
+
+\section{Solitaire Cipher}
+
+Write down your own message and encrypt it using the Solitaire Cipher.
+
+
+\vspace{2em}
+
+You can use either Bruce Schneier's description at
+\begin{itemize}
+\item \href{https://www.schneier.com/solitaire.html}{https://www.schneier.com/solitaire.html}
+\end{itemize}
+
+or the 26-card Wikipedia version at 
+
+\begin{itemize}
+\item \href{https://en.wikipedia.org/wiki/Solitaire_(cipher)}{https://en.wikipedia.org/wiki/Solitaire\textunderscore(cipher)}
+\end{itemize}
+
+Also write down enough information so that I can decode it, like the key (including jokers).
+If you want to keep it simple, you can start with the deck in order as your ``key''.
+
+
+\newpage
+\section*{Computer Things}
+
+If you have a smartphone or can get access to the computers, try these. Try to do this together with someone else if they don't have a smartphone.
+
+\subsection*{Smartphone Apps / Encrypted Email}
+
+Look for crypto apps on you can use on your phone or the internet, and try out anything that seems interesting. (But don't buy anything unless you have permission from your parents!)
+
+Write down a brief review of your experience. Some questions to answer:
+
+\begin{itemize}
+\item How does the cryptography affect how you use it?
+\item How easy is it to use? Can you send messages to each other?
+\item Would you trust it if you needed to keep a secret? Why/why not?
+\item Can you explain some details of the cryptography behind it? (Other than ``it encrypts my messages''?)
+\end{itemize}
+
+
+
+\vspace{2em}
+Here are some apps you could try:
+
+\begin{itemize}
+\item \href{https://whispersystems.org/}{TextSecure} and \href{https://whispersystems.org/}{RedPhone} (Android)
+\item iMessage (iOS)
+\begin{itemize}
+\item Apple has a cool paper about how iMessage works:\\\href{https://ssl.apple.com/iphone/business/docs/iOS_Security_Feb14.pdf}{https://ssl.apple.com/iphone/business/docs/iOS{\textunderscore}Security{\textunderscore}Feb14.pdf}
+\end{itemize}
+\item Anything on an app store that doesn't sound like a scam (be careful!).
+\item \href{https://protonmail.ch/}{protonmail.ch}
+\item \href{https://protonmail.ch/}{scramble.io}
+\end{itemize}
+
+
+
+\subsection*{keybase.io}
+
+In particular, I have invites to \href{https://keybase.io/}{keybase.io}
+I encourage you to try it; send me an email for an invite.
+
+
+\subsection*{PGP}
+
+This on's a bit of a challenge. Try to make yourself a PGP key, and send an encrypted message to:
+
+\begin{itemize}
+\item \href{mailto:lucas@garron.net}{lucas@garron.net}
+\item My PGP key is at: \href{https://garron.net/lucas/lgarron-3880CAE7.asc}{https://garron.net/}\\(click on {\tt{E3EE C254 3880 CAE7}} next to the lock).
+\end{itemize}
+
+
+Here are two useful tutorials on how to do it on a computer. They're fairly detailed, and you might need to try different things to make it work:
+
+\begin{itemize}
+\item \href{https://emailselfdefense.fsf.org/}{https://emailselfdefense.fsf.org/}
+\item \href{http://futureboy.us/pgp.html}{http://futureboy.us/pgp.html}
+\end{itemize}
+
+\subsection*{Programming}
+
+If you know how to program, implement the Caesar Cipher, the Solitaire Cipher, or some of the math we learned in class.
+
+Try to make something you can show to other students, but don't spend too much time on it.
+
+
+
+
+\end{document}

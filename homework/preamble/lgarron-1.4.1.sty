@@ -1,0 +1,94 @@
+%LaTeX Conveniences
+%v1.4
+%20120131
+
+%Lucas Garron, garron.us
+%2009-2012
+
+%Pointy things
+\def\=>{\Rightarrow}
+\def\imp{\Rightarrow}
+\def\pmi{\Leftarrow}
+\def\->{\rightarrow}
+\def\from{\leftarrow}
+\def\lra{\leftrightarrow}
+\def\iff{\Leftrightarrow}
+
+%Logic
+\def\E{\exists}
+\def\A{\wedge}
+
+%Operations
+\def\*{\cdot}
+\def\m{\bmod}
+
+%Comparisons 
+\def\!={\neq}
+\def\<={\leq}
+\def\>={\geq}
+\def\=|{\equiv}
+
+%Important Structures
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+\def\F{\mathbb{F}}
+\def\Q{\mathbb{Q}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+%Formatting/Display
+\def\_{\underline}
+\def\ov{\overline}
+
+\def\ssum{\displaystyle\sum}
+\def\pprod{\displaystyle\prod}
+\def\llim{\displaystyle\lim}
+\def\/{\over}
+
+\def\un{\underline}
+\def\t{\textrm}
+
+%Convenience shortcuts
+\def\i{^{-1}}
+\def\horule{\begin{center}\rule{\linewidth}{0.2mm}\end{center}}
+\def\thorule{\begin{center}\rule{\linewidth}{0.01mm}\end{center}}
+\def\st{\textnormal{ such that }}
+\def\deg{^{\circ}}
+\def\0{\emptyset}
+\def\powerset{\mathcal{P}}
+\def\li{\begin{enumerate}}
+\def\lid{\end{enumerate}}
+
+%Sections
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+%\newtheorem{Xproof}{Proof}
+\newenvironment{proof}{{\bf Proof.  }}{\hfill$\Box$}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\newtheorem{note}{Note}
+\newtheorem{claim}{Claim}
+\newtheorem{notation}{Notation}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+
+
+%The Idea
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.5}
+
+\def\theidea#1{\textcolor{light-gray}{\sc{\large The Idea: }#1}\\}
+
+%QED
+\usepackage{stmaryrd}
+
+\def\markatright#1{\leavevmode\unskip\nobreak\quad\hspace*{\fill}{#1}}
+\def\qed{$\markatright{\square}$}
+
+
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+\newcommand{\tod}[2]{\textcolor{red}{\textbf{[TODO: {\it{#1}} #2]}}}
+\newcommand{\td}[1]{\textcolor{red}{\textbf{[TODO: {\it #1}]}}}
+\newcommand{\sol}[1]{{\textcolor{red}[\textbf[SOLUTION: {#1}]]}}

@@ -1,0 +1,261 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 5}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
+%\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+
+\section{Birthday Paradox}
+
+\subsection{}
+
+
+A deck of $52$ cards is shuffled and the top eight cards are turned over.
+
+\begin{itemize}
+\item What is the probability that the king of hearts is visible?
+\item A second deck is shuffled and its top eight cards are turned over. What is the
+probability that any visible card from the first deck matches a visible card from the second deck? 
+\end{itemize}
+
+\sol{
+Question is from ``An Introduction to Mathematical Cryptography''
+}
+
+
+\subsection{}
+
+Suppose there are $k$ people in a room, and assume that there are 365 possible birthdays, equally likely and independent for each person.
+
+Use the approximation ${k(k-1) \over 2n}$ the chance that at least two of them share a birthday for the following values of $k$:
+
+\begin{itemize}
+\item $k=5$
+\item $k=10$
+\item $k=15$
+\item $k=23$
+\item $k=40$
+\item $k=100$
+\end{itemize}
+
+Now calculate the exact probabilities (using a calculator / WolframAlpha). When does the estimate become unreliable?
+
+\sol{
+$$
+\left(
+\begin{array}{ccc}
+ 2 & 0.00273973 & 0.00273973 \\
+ 5 & 0.0271356 & 0.0273973 \\
+ 10 & 0.116948 & 0.123288 \\
+ 15 & 0.252901 & 0.287671 \\
+ 23 & 0.507297 & 0.693151 \\
+ 40 & 0.891232 & 2.13699 \\
+ 100 & 1. & 13.5616 \\
+ 360 & 1. & 177.041 \\
+\end{array}
+\right)
+$$
+}
+
+\subsection{}
+
+Suppose you are using $64$-bit random numbers. Roughly how many numbers can you generate before there is likely to be a collision?
+
+What if you generate $128$-bit numbers instead? $32$-bit numbers?
+
+\sol{$2^{32}, 2^{64}, 2^{16}$}
+
+\subsection{}
+
+Suppose you are generating $k$ keys, and need them all to be different. Roughly how large does the key space need to be for the following values of $k$?
+
+\begin{itemize}
+\item $k = 100$
+\item $k = 10$
+\item $k = 2$
+\end{itemize}
+
+\sol{
+$n > k^2 / {2 p}$
+}
+
+\subsection{}
+
+Suppose everyone uses RSA with two primes $p$ and $q$, each selected uniformly at random from all the primes with $256$ bits.
+
+Assuming you are only worried about collisions, about how many keys can be generated so that the probability that none of the keys share any primes is $< 1 / 2^{40}$ (one in a trillion)?
+
+You'll need to use the fact that there are about ${n \over 2 \log_e n}$ $n$-bit primes. Keep in mind that every RSA key contains \emph{2} primes.
+
+
+\sol{
+Solve
+$$
+{(2k)^2 \over {2 \* 2^{256} / 2 \log_e 2^{256}}} = 1 / 2^{40}
+$$
+for $k$:
+$$
+k \approx 2.43 \* 10^{31}
+$$
+(Note the answer on the previous line is in base $10$.
+}
+
+
+\section{Baby-Step Giant Step}
+
+Recall the baby-step giant-step algorithm for finding $x$ given $(g, h = g^x)$
+
+\begin{itemize}
+\item $Let m = \lceil \sqrt{n} \rceil$
+\item Make a lookup table:
+\begin{itemize}
+\item $h \* g^{0} \to k = 0$
+\item $h \* g^{1} \to k = 1$
+\item ...
+\item $h \* g^{m} \to k = m$
+\end{itemize}
+\item For $i = 0, m, 2m, ..., p$:
+\begin{itemize}
+\item If $g^i$ is in the table as $h \* g^k$, output $i - k$.
+\end{itemize}
+
+\end{itemize}
+
+
+Solve the following discrete log problem instances.
+
+\begin{itemize}
+\item $G = \Z_{29}^*$, $g=3$, $g^x = 7$ \sol{8}
+\item $G = \Z_{67}^*$, $g=2$, $g^x = 53$ \sol{21}
+\item $G = \Z_{257}^*$, $g=27$, $g^x = 57$ \sol{42}
+\end{itemize}
+
+How many steps did each one take you? How long would it have taken the naive way?
+
+\subsection{}
+
+Suppose $g \in \Z_p^*$. If $x$ is a random exponent, how many step on average will it take to solve the discrete log problem using baby-step giant-step.
+
+\sol{
+$1.5 \* \sqrt{p}$
+}
+
+\section{Hash Tables}
+
+Ask Lucas about how to make baby-step giant-step actually run fast.
+
+\section{Malleability}
+
+Use the homomorphic properties of these systems to create and modify ciphertexts/signatures:
+
+\begin{itemize}
+\item RSA: $E(m) \to E(2m)$
+\item ElGamal Encryption: $E(m) \to E(2m)$
+\end{itemize}
+
+Can you create any  forgeries for ElGamal Signatures?
+
+\section{ElGamal Signatures}
+
+Verify the following ElGamal signatures:
+
+\begin{itemize}
+\item $(p = 13, g = 2, h=8)$,  $m = 24, s = 6$
+\item $(p = 29, g = 2, h=11)$, $m = 24, s = 2$
+\item $(p = 137, g = 3, h=37)$, $m = 100, s = 42$
+\end{itemize}
+
+\subsection{}
+
+Pick a partner; ask them to send you a signature. Verify it.
+
+
+
+%
+%\section{Coin Toss Game}
+%
+%Let's consider what it means for particular adversary to have a certain advantage, by considering a simple coin toss game where the adversary must distinguish a biased coin from a real one. In effect, we are computing how ``defective'' the biased coin is compared to a fair random number generator by how easily we can tell it apart.
+%
+%We have two coins, a fair coin (probability $1/2$ of HEADS, otherwise TAILS), and a coin biased towards heads (probability $p$ of HEADS, otherwise TAILS, where $p>1/2$). You may assume that the challenger and the adversary know $p$ ahead of time. To start the game, the challenger tosses a coin, as follows:
+%
+%\begin{itemize}
+%\item In Experiment 0: The challenger tosses the fair coin.
+%\item In Experiment 1: The challenger tosses the biased coin.
+%\end{itemize}
+%
+%In both experiments, the challenger then sends the result of the toss to the adversary.
+%
+%\begin{enumerate}
+%\item In the last step of each experiment, what does the adversary output, and why?
+%\item Let $\mathcal{A}$ be an adversary that outputs $\mathcal{A}(b)$ in Experiment $b \in \{0, 1\}$. Define the advantage of $\mathcal{A}$ (similar to the advantage for semantic security), and explain what it means.
+%\item Show the computation of the advantage of each of the following adversaries:
+%\begin{itemize}
+%\item $\mathcal{A}_1$: Always output $1$.
+%\item $\mathcal{A}_2$: Ignore the result reported by the challenger, and randomly output $0$ or $1$ with even probability.
+%\item $\mathcal{A}_3$: Output $1$ if HEADS was received, else output $0$.
+%\item $\mathcal{A}_4$: Output $0$ if HEADS was received, else output $1$.
+%\item $\mathcal{A}_5$: If HEADS was received, output $1$. If TAILS was received, randomly output $0$ or $1$ with even probability.
+%\end{itemize}
+%\item What is the best possible advantage in this game? (Give a proof.)
+%\end{enumerate}
+%
+%
+%\sol{
+%\begin{enumerate}
+%\item The adversary outputs either $0$ or $1$. (S)he does this because (s)he is trying to determine which experiment (s)he is in. Being in Experiment $0$/$1$ corresponds to having a fair/biased coin, so the output is effectively a guess for which coin was tossed.
+%\item The advantage is computes how good an adversary's guess is that the coin is biased. It's the difference between how often the adversary \emph{incorrectly} guesses that the coin is biased and how often (s)he \emph{correctly} tells that it's biased:
+%
+%$$Adv(\mathcal{A}) = \Big|Pr[\mathcal{A}(0) = 1] - Pr[\mathcal{A}(1) = 1]\Big|$$
+%\item
+%\begin{itemize}
+%\item $Adv(\mathcal{A}_1) = |1 - 1| = 0$
+%\item $Adv(\mathcal{A}_2) = |1/2 - 1/2| = 0$
+%\item $Adv(\mathcal{A}_3) = |1/2 - p| = p-1/2$
+%\item $Adv(\mathcal{A}_4) = |p - 1/2| = p-1/2$
+%\item $Adv(\mathcal{A}_4) = |3/4 - (p + {1\over 2}(1-p))| = p/2-1/4$
+%\end{itemize}
+%
+%Note that any adversary that ignores the information from the coin toss has advantage $0$.
+%
+%\item $\mathcal{A}_3$ and $\mathcal{A}_4$ have the optimal advantage, $p - 1/2$.
+%
+%Let $X \in \{H, T\}$ be the outcome of the toss reported by the challenger to the adversary (either HEADS or TAILS). The adversary has no information other than $X$ to distinguish the experiments, so we can define:
+%$$f(x) = Pr\Large[\mathcal{A}(\cdot) = 1~|~X=x\Large]$$
+%
+%$f$ is effectively the probability our strategy guesses ``biased'' (Experiment $1$) in each case. We can split the probability into cases based on $X$:
+%$$Adv(\mathcal{A}) = \Big|
+%\Big({1\over2}f(H) + {1\over2}f(T)\Big)
+%-
+%\Big(p\cdot f(H) + (1-p)\cdot f(T)\Big)
+%\Big|$$
+%$$= \Big|
+%\Big({1\over2} - (1-p)\Big) f(T)
+%-
+%\Big(p - {1\over2}\Big) f(H)
+%\Big|$$
+%$$= \Big(p - {1\over2}\Big) \cdot \Big|
+%f(T) - f(H)
+%\Big|$$
+%The best strategy is to make sure the output is as different as possible depending on $X$. We could select $f(T) = 0$ and $f(H) = 1$, which corresponds to the strategy of adversary $\mathcal{A}_3$. (The opposite choice gives us $\mathcal{A}_4$).
+%\end{enumerate}
+%}
+%
+
+
+
+\end{document}

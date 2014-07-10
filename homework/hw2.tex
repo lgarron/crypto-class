@@ -1,0 +1,148 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 1}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+%\newcommand{\sol}[1]{\color{red}\textbf[SOLUTION: {#1}]}
+\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+
+If you want to click on any of the links, you can find this at \href{https://garron.net/spcs/}{garron.net/spcs}
+
+Today's homework is less math and a bit more exploring. You don't have to do everything. Make sure to do the math, but feel free to try the rest in any order.
+
+\section{Extended GCD}
+
+Calculate the extended GCD of the following:
+
+\begin{itemize}
+\item $GCD(4,30)$
+\item $GCD(85,136)$
+\item $GCD(4,7)$
+\item $GCD(104,144)$
+\item $GCD(34,55)$
+\end{itemize}
+
+\section{Inverses}
+
+Calculate the following:
+
+\begin{itemize}
+\item $5^{-1} \mod 17$
+\item $23^{-1} \mod 100$
+\end{itemize}
+
+Recall that $x^{-1} (mod n)$ is the number $y$ that makes $1 = x \* y (mod n)$.
+
+
+\section{GCD Order}
+
+If $x, y, z \in \Z^+$, prove that 
+
+$$
+GCD\Big(GCD(x, y), z\Big) = GCD\Big(x, GCD(y, z)\Big)
+$$
+
+(Hint: Try to extend the idea we used in class. Define $c$ as the ``the GCD of all three numbers'': the largest number in $\Z^+$ that divides all of $x, y$, and $z$. Then show that both sides must have the value $c$.)
+
+\sol{Let $c \in \Z+$ be the largest number such that
+
+$$
+c | x\text{ and }c | y\text{ and }c | z
+$$
+
+}
+
+\section{Your Friend, the Golden Ratio}
+
+Do this in a large group:
+
+Create a 25x25 grid and labels the rows and columns from $1$ to $25$ each. In the cell at row $x$ and column $y$, write down \emph{how many steps it takes for the Euclidean algorithm to finish} when calculating $GCD(x, y)$ (use the faster version, and don't count the first step if the numbers don't change). You should be able to find tricks for speeding this up because you're calculating ``in bulk''.
+
+Circle the cells that have a larger value than anything ``before'' them. (i.e.where the value at $(x,y)$ is the largest for any $(x', y')$ with $x' \leq x, y\ \leq y$). Do you see a pattern? Can you explain it?
+
+
+\section{Identity}
+
+
+Prove that if $a, b \in \Z^+$, $a > b$, $GCD(a, b) = 1$, and $0 \leq m < n$, then:
+
+$$
+gcd(a^m - b^m, a^n - b^n) = a^{GCD(m, n)} - b^{GCD(m, n)}
+$$
+
+\sol{
+This one's from \emph{Concrete Mathematics}, problem 4.38
+
+}
+
+\section{Thought Experiment}
+
+Suppose Alice and Bob are trying to start a conversation that has confidentiality, authentication, and (mutual) identification. Assuming they take the following two steps (in either order), which of these do they need to do first, and why?
+
+\begin{itemize}
+\item Prove their identities to each other (Identification)
+\item Agree on a shared secret key and use it to start an encrypted conversation (Confidentiality).
+\end{itemize}
+
+For now, assume they have a way to do both parts in an authenticated way (i.e. no one can tamper with what they send -- the receiver gets the ``authentic'' message that was sent from the other person, regardless of whether they trust the person or not).
+
+\section{Repeated Squaring}
+
+Calculate the following by repeated squaring:
+
+\begin{itemize}
+\item $4^{13} \mod 19$
+\item $3^{20} \mod 17$
+\end{itemize}
+
+
+\section{Diffie-Hellman}
+
+Pick a partner and perform Diffie-Hellman with:
+
+\begin{itemize}
+\item $G = \Z_{31}^*$
+\item $g = 3$
+\end{itemize}
+
+That is, pick a random number $a \in \{1, ..., 30\}$ and send your partner $3^{a}$.
+
+When you get a number from them (call it $h$), compute $h^a$. Compare your secrets.
+
+(You'll probably need to do more repeated squaring.)
+
+\section{Discrete Log}
+
+Find $y$ such that $3^{y} \mod 17 = 12$
+
+\section{Multi-Party Key Agreement}
+
+Use Diffie-Hellman to design a protocol that allows 3 people to agree on a secret key.
+
+Assume that all three can communicate to each other. Anyone can eavesdrop on the communication, but not modify it.
+
+\begin{itemize}
+\item Easy version: Once you have a secret key in common with anyone, you can communicate securely with them.
+\item Easy version: You have to set up all the keys before you can communicate securely.
+\end{itemize}
+
+
+Try to demonstrate that breaking your system would break discrete log or Diffie-Hellman.
+
+
+
+
+\end{document}

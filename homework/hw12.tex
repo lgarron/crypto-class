@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{subfigure}
+\usepackage{hhline}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 12}
+\rhead{}
+
+\lhead{}
+
+
+\let\sol=\undefined
+%\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
+\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document}
+
+\section{Encryption}
+
+Consider the following $PRP$, $E(k, x)$:
+
+$$
+E : \mathcal{K} \times \mathcal{X} \to \mathcal{X}
+$$
+
+where
+
+$$
+\mathcal{K} = \{\text{ant},\text{bird},\text{cat},\text{dog},\text{eel},\text{fish}\}
+$$
+$$
+\mathcal{X} = \{0, 1\}^3
+$$
+
+$$
+\large
+\begin{array}{l||c|c|c|c|c|c|c|c|c}
+E & 000 & 001 & 010 & 011 & 100 & 101 & 110 & 111 & x\\ \hhline{|=||=|=|=|=|=|=|=|=|=}
+ \text{ant} & 000 & 100 & 110 & 001 & 111 & 010 & 011 & 101 \\ \hline
+ \text{bird} & 111 & 001 & 000 & 110 & 100 & 010 & 101 & 011 \\ \hline
+ \text{cat} & 011 & 100 & 001 & 010 & 101 & 000 & 110 & 111 \\ \hline
+ \text{dog} & 000 & 100 & 110 & 010 & 101 & 011 & 001 & 111 \\ \hline
+ \text{eel} & 110 & 100 & 101 & 011 & 001 & 111 & 010 & 000 \\ \hline
+ \text{fish} & 000 & 001 & 100 & 110 & 011 & 101 & 010 & 111 \\ \hline
+k
+\end{array}
+$$
+
+\subsection{}
+
+Fill in the inverse table for $D(k, x)$:
+
+$$
+\large
+\begin{array}{l||c|c|c|c|c|c|c|c|c}
+D & 000 & 001 & 010 & 011 & 100 & 101 & 110 & 111 & x\\ \hhline{|=||=|=|=|=|=|=|=|=|=}
+ \text{ant} &  &  &  &  &  &  &  &  \\ \hline
+ \text{bird} &  &  &  &  &  &  &  &  \\ \hline
+ \text{cat} &  &  &  &  &  &  &  &  \\ \hline
+ \text{dog} &  &  &  &  &  &  &  &  \\ \hline
+ \text{eel} &  &  &  &  &  &  &  &  \\ \hline
+ \text{fish} &  &  &  &  &  &  &  &  \\ \hline
+k
+\end{array}
+$$
+
+\newpage
+\subsection{}
+
+Based on your work, verify that this is a PRP. In particular:
+
+\begin{itemize}
+\item $f(x) = E(k, x)$ is a permutation for any specific key $k \in \mathcal{K}$.
+\begin{itemize}
+\item If you assign each value in $\{0, 1\}^3$ a distinct color and use this to color in the table, what would happen?
+\end{itemize}
+\item $f(x) = E(k, x)$ always has a unique inverse $f^{-1}(x) = D(k, x)$.
+\begin{itemize}
+\item This should hold because of the permutation property.
+\end{itemize}
+\item $E(k, x)$ and $D(k, x)$ are efficiently computable for any $k \in \mathcal{K}, x \in \mathcal{X}$.
+\end{itemize}
+
+Note that this is not a \emph{secure} PRP because $|\mathcal{K}|$ and $|\mathcal{X}|$ are very small. (The entire table fits on a single page!)
+
+\subsection{}
+
+Decrypt the following messages:
+
+\begin{itemize}
+\item Decrypt $(IV = {\tt 101}, c = {\tt 000~011~010 })$ using CBC with the key $\text{cat}$.
+\begin{itemize}
+\item (You should get ${\tt 000~000~000}$).
+\end{itemize}
+\item Decrypt $(IV = {\tt 110}, c = {\tt 010~111~111})$ using CTR with the key $\text{cat}$. \sol{${\tt 100~000~100}$} 
+\end{itemize}
+
+\section{}
+
+Verify the following signatures:
+
+\begin{itemize}
+\item Verify $s = {\tt 110}$ for the message ${\tt 000}$ using CBC-MAC with the key $(k_1, k_2) = (\text{dog}, \text{eel})$.
+\item Verify $s = {\tt 010}$ for the message ${\tt 001~010~011}$ using CBC-MAC with the key $(k_1, k_2) = (\text{dog}, \text{eel})$.
+\end{itemize}
+
+\newpage
+For the following section, we will be using the authenticated encryption systems built from our and existing cipher $Encrypt, Decrypt$, and CBC-MAC. The encryption method is:\\
+
+$Encrypt-Then-Sign\Big(\large(k_E, (k_1, k_2)\large), x\Big):$
+
+\begin{itemize}
+\item $(IV, c) = Encrypt(k_E, x)$
+\item $s = Sign\Large((k_1, k_2), IV \| c\Large)$
+\item output $(IV, c, s)$
+\end{itemize}
+
+\section{}
+
+Why is it safe to concatenate the IV with c for the signature?
+
+(Recall that excluding the IV completely allows for an easy forgery. Why can this not happen here?)
+
+\section{}
+
+Decrypt and verify the following authenticated encryption:
+
+\begin{itemize}
+\item $(IV_{CBC} = {\tt 111}, c = {\tt 111~111~000~001~111~100}, s = {\tt 001})$ using CBC with CBC-MAC:
+\begin{itemize}
+\item $k_{CBC} = \text{eel}$
+\item $k_{CBC{\textunderscore}MAC} = (k_1, k_2) = (\text{cat}, \text{dog})$ \\\sol{{\tt 011}}
+\end{itemize}
+\end{itemize}
+
+
+\subsection{}
+
+Bonus: Unpad and decode the message using ASCII character codes. (Assume our standard padding scheme was used: add a one bit, then add zeros.)
+
+\sol{
+$${\tt 010~010~000~100~100~110}$$
+
+ASCII version: ``HI''
+}
+
+
+
+\subsection{}
+
+Decrypt and verify the following authenticated encryption:
+
+\begin{itemize}
+\item $(s = {\tt 011}, IV_{CTR} = {\tt 110}, c = {\tt 111~001~101~100~010~100})$ using CTR with CBC-MAC:
+\begin{itemize}
+\item $k_{CTR} = \text{bird}$
+\item $k_{CBC{\textunderscore}MAC} = (k_1, k_2) = (\text{ant}, \text{fish})$ \\\sol{{\tt 011}}
+\end{itemize}
+\end{itemize}
+
+
+\sol{
+$${\tt 010~010~000~100~100~110}$$
+
+ASCII: ``IT''
+}
+
+\subsection{}
+
+Pick  partner you haven't worked with before.
+
+Agree on a CTR key and a CBC-MAC (double) key with your partner. Ask them to send you \emph{two} authenticated encryptions of different $9$-bit messages:
+
+\begin{itemize}
+\item One with a valid signature.
+\item One where they have either tampered with the encrypted ciphertext, the IV, or the MAC.
+\end{itemize}
+
+Check that exactly of the messages verifies, and decrypt the valid one.
+
+(If you want, use a longer ASCII-encoded message instead of 9 bits. Make sure you both know what padding you're using.)
+
+\subsection{}
+
+Pick one of the ways CBC-MAC can be broken:
+\begin{itemize}
+\item ``Randomized'' $IV$
+\item No finalization (no extra encryption at the end).
+\item Same key for the CBC portion and the the finalization.
+\end{itemize}
+
+Ask Lucas/Aaron/Conrad queries in the MAC Security game and produce a forgery.
+
+
+\newpage
+\section{One-Time MAC}
+
+Recall our one-time MAC from class:
+
+
+\begin{itemize}
+\item $p \in \mathbb{P}$
+\item $(a, b) \rf \Z_p^* \times \Z_p$
+\item $Sign\Big((a, b), x\Big) = a\*x + b \mod p$
+\end{itemize}
+%
+%\subsection{}
+%
+%The signature scheme as written doesn't quite work. It should be:
+%
+%\begin{itemize}
+%\item $(a, b) \in \mathcal{A}, \mathcal{B}$
+%\item $Sign((a, b), x) = \mathcal{S}$, where $x \in \mathcal{X}$
+%\end{itemize}
+%
+%In order for correctness and security to hold, what should $\mathcal{A}, \mathcal{B}, \mathcal{S}, \mathcal{X}$ each be?
+%
+%(Choose from $\Z_p$ or $\Z_p^*$ for each one. Remember that $p$ will be a large prime in a secure version of this system.)
+
+\subsection{}
+
+Say we have a particular key $(a, b)$.
+
+Prove that each different message would result in a different message if we sign it (using this particular key).
+
+\subsection{}
+
+If $p$ is large enough and $(a, b)$ is a completely random valid key, can you use this as a secure PRP?
+
+\sol{
+
+No, two queries and you've broken it.
+
+}
+
+
+\subsection{}
+
+Let $(a, b) = (3, 4) \in \Z_7^* \times \Z_7$ (i.e. $p = 7$).
+
+\begin{itemize}
+\item Compute the signatures of $x = 0, 1, ..., 6$
+\end{itemize}
+
+\subsection{}
+
+Here are two valid message-signature pairs computed using the same key with $p=13$
+
+\begin{itemize}
+\item $(x=4, s=5)$
+\item $(x=2, s=4)$
+\end{itemize}
+
+Produce a valid forgery for the message $x = 10$.
+
+(Can you find an easy way to do it in this case, without solving for $a$ and $b$?)
+
+\subsection{}
+
+Do the previous problem with a partner, using $p = 17$
+
+\begin{itemize}
+\item Ask them to select a random key $(a, b) \rf \Z_{17}^* \times \Z_{17}$.
+\item Send them two messages $x$ and $x'$ and receive a signature on each.
+\item Produce a forgery on a new message $x''$.
+\end{itemize}
+
+\subsection{}
+
+Open-Ended: Can you fix this system so that it allows more than two uses?
+
+
+
+
+\end{document}

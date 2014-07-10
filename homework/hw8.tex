@@ -1,0 +1,245 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 7}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+%\newcommand{\sol}[1]{\begin{proof}\color{red}\textbf[SOLUTION: {#1}]\end{proof}}
+\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document}
+
+
+
+
+Questions 1-2 are similar to yesterday. Make sure you have a written solution to at least one part of each problem, and ask Conrad or Aaron to check it. Try to make sure you understand how perfect secrecy works, but don't spend more than an hour on this.
+
+You can use the following way to check perfect secrecy: A cipher has perfect secrecy if every messages is encrypted to the same ciphertext with the same probability. That is:
+
+
+{\definition (A cipher with the encryption function $E$ has perfect secrecy if) for every $m \in \mathcal{M}$ and $c \in \mathcal{C}$, the probability
+
+$$
+Pr[E(k \rf \mathcal{K}, m) = c]
+$$
+
+is always the same (or doesn't depend on $m$).
+}
+
+Make sure to prove that something has perfect secrecy by doing this calculation, or to disprove it by showing two messages $m_0 \in \mathcal{M}$ such that this doesn't hold.
+
+\section{One-Time Pad Overkill}
+
+Suppose we use a double-key for OTP:
+
+$$\mathcal{K} = \mathcal{K}_1 \times \mathcal{K}_2 = \{0, 1\}^n \times \{0, 1\}^n$$
+$$\mathcal{M} = \{0, 1\}^n$$
+$$\mathcal{C} = \{0, 1\}^n \times \{0, 1\}^n$$
+
+\begin{itemize}
+\item $E((k_1, k_2), m)  = (k_1 \oplus m, k_2 \oplus m)$
+\item $D((k_1, k_2), (c_1, c_2))  = k_1 \oplus c_1$
+\end{itemize}
+
+Prove that this cipher has perfect secrecy. (Make sure to use the definition of perfect secrecy.
+)
+
+\sol{
+For any $m \in \mathcal{M}, c \in \mathcal{C}$:
+$$
+Pr[E(k \rf \mathcal{K}, m) = c] = {1 \over (2^n)^2}
+$$
+
+Thus, the definition of perfect secrecy holds if we compare any two messages.
+}
+
+
+\section{Analyze that Cipher!\texttrademark}
+Suppose we have a cipher
+
+\begin{itemize}
+\item $E : \mathcal{K} \times \mathcal{M} \to \mathcal{C}$
+\item $D : \mathcal{K} \times \mathcal{C} \to \mathcal{M}$
+\end{itemize}
+
+that has perfect secrecy. Consider the following ciphers that are built on it. For each one:
+
+\begin{itemize}
+\item Verify that correctness holds (show that encrypting and decrypting a message $m$ using the same key always gives you back $m$).
+\item Figure out if it has perfect secrecy. Prove/disprove it.
+\end{itemize}
+
+
+
+\subsection{}
+
+\begin{itemize}
+\item $\mathcal{K'} = \mathcal{K}$
+\item $\mathcal{M'} = \mathcal{M}$
+\item $\mathcal{C'} = \mathcal{C} \times \{0, 1\}$
+\item $E'(k, m) = (E(k, m), m[0])$
+\item $D'(k, (c_1, c_2) = D(k, c_1)$
+\end{itemize}
+
+
+\subsection{}
+
+\begin{itemize}
+\item $\mathcal{K'} = \mathcal{K}$
+\item $\mathcal{M'} = \mathcal{M}$
+\item $\mathcal{C'} = \mathcal{C} \times \mathcal{K}$
+\item $E'(k, m) = (E(k, m), k)$
+\item $D'(k, (c_1, c_2) = D(k, c_1)$
+\end{itemize}
+
+\sol{
+This does not have perfect secrecy.
+
+Consider an encryption $c = (c_1, c_2) = E(k \rf \mathcal{K}, m)$ of a message $m$. This means that $k = c_2$.
+
+Suppose another message $m'$  can encrypt to the same ciphertext. Since
+$$E(k', m') = c = (c_1, c_2)$$
+this means that $k' = c_2 = k$.
+
+However, we also know that $D(k, c) = m$. Thus, two messages cannot encrypt to the same ciphertext, and we definitely don't have perfect secrecy.
+
+
+}
+
+
+\section{}
+
+\subsection{}
+
+
+Consider a ``modular'' version of the one-time pad.
+
+\begin{itemize}
+\item $\mathcal{K} = \Z_n^*$
+\item $\mathcal{M} = \Z_n^*$
+\item $\mathcal{C} = \Z_n^*$
+\item $E(k, m) = m + k$
+\item $D(k, c) = c - k$
+\end{itemize}
+
+Prove that it has perfect secrecy.
+\subsection{}
+
+
+Do the same thing for the multiplicative group $(mod n)$
+Consider a ``modular'' version of the one-time pad.
+
+\begin{itemize}
+\item $\mathcal{K} = \Z_n^*$
+\item $\mathcal{M} = \Z_n^*$
+\item $\mathcal{C} = \Z_n^*$
+\item $E(k, m) = m \* k$
+\item $D(k, c) = c \* k^{-1}$
+\end{itemize}
+
+Prove that it has perfect secrecy.
+
+
+
+
+\section{Functions}
+
+Recall:
+$$\Big|FUNCTIONS[X \to Y]\Big| = |Y|^{|X|}$$
+
+In particular, keep in mind that the function is determined by $|X|$ choices of values from $Y$, so $|X|$ is in the exponent.
+
+\subsection{}
+
+Consider the functions $f: \Z_n \to \Z_n$ for $n = 2$. How many such functions are there?
+
+$$\Big|FUNCTIONS[\Z_n \to \Z_n]\Big|$$
+
+Write down a description of each function $\in FUNCTIONS[\Z_n \to \Z_n]$
+
+\subsection{}
+Calculate how meany of each of the following kinds of functions there are:
+
+\begin{center}
+\begin{tabular}{|c|c||c|}
+\hline
+$X$ & $Y$ & $\overset{}{\underset{}{\Big|FUNCTIONS[X \to Y]\Big|}}$ \\
+\hline
+$\Z_p$ & $\Z_p$ & $\overset{}{\underset{}{~}}$ \\
+\hline
+$\Z_n$ & $\Z_n^*$ & $\overset{}{\underset{}{~}}$ \\
+\hline
+$\{\text{meow, purr}\}$ & $\{\text{happy, sad, hungry}\}$ & $\overset{}{\underset{}{~}}$ \\
+\hline
+$\{\text{happy, sad, hungry}\}$ & $\{\text{meow, purr}\}$ & $\overset{}{\underset{}{~}}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+
+\section{One-Time Pad Malleability}
+
+
+Alice is sending her bank the message ``{\tt SEND \$1000 TO BOB}''. Here is the encryption using a stream cipher:\\
+
+{
+\tt{00011011~00101110~11011011~10111011~00000100}
+
+\tt{10000111~11010101~10001111~10010000~01101111}
+
+\tt{00100011~11111010~11111001~10110100~11011101}
+
+\tt{01010000~11100000}\\
+}
+
+Modify the message so that it decrypts to ``{\tt SEND \$1000 TO EVE}'' instead (using the same key). You don't have to rewrite the whole message, just the part that changes.
+
+Here's a table of ASCII values for the uppercase letters again:
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c||c|c|}
+\hline
+A & 65 & \tt{01000001} & & N & 78 & \tt{01001110} \\
+B & 66 & \tt{01000010} & & O & 79 & \tt{01001111} \\
+C & 67 & \tt{01000011} & & P & 80 & \tt{01010000} \\
+D & 68 & \tt{01000100} & & Q & 81 & \tt{01010001} \\
+E & 69 & \tt{01000101} & & R & 82 & \tt{01010010} \\
+F & 70 & \tt{01000110} & & S & 83 & \tt{01010011} \\
+G & 71 & \tt{01000111} & & T & 84 & \tt{01010100} \\
+H & 72 & \tt{01001000} & & U & 85 & \tt{01010101} \\
+I & 73 & \tt{01001001} & & V & 86 & \tt{01010110} \\
+J & 74 & \tt{01001010} & & W & 87 & \tt{01010111} \\
+K & 75 & \tt{01001011} & & X & 88 & \tt{01011000} \\
+L & 76 & \tt{01001100} & & Y & 89 & \tt{01011001} \\
+M & 77 & \tt{01001101} & & Z & 90 & \tt{01011010} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{2em}
+
+\sol{
+Key: The last three bytes change to
+$$
+{\tt 11111001~10110100~11011101} \oplus ``{\tt EVE}'' \oplus ``{\tt BOB}''
+$$
+$$ = {\tt 11011010~01001001~11100111}$$
+}
+
+
+
+
+\end{document}

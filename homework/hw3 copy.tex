@@ -1,0 +1,242 @@
+
+\documentclass[12pt]{article}
+
+\input{preamble/preamble}
+\usepackage{multirow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[C]{SPCS Cryptography -- Homework 3}
+\rhead{}
+
+\lhead{}
+
+\let\sol=\undefined
+%\newcommand{\sol}[1]{\color{red}\textbf[SOLUTION: {#1}]}
+\newcommand{\sol}[1]{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\begin{document} 
+\section{Homomorphisms}
+
+Which of these are homomorphisms?
+
+Either explain why, or give a counter-example to disprove it.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+& $f(x)$ & $a \star_1 b$ & $a \star_2 b$ \\
+\hline
+$f_1 : \R \to \R$ & $-x$ & $a + b$ & $a + b$ \\
+\hline
+$f_2 : \Z \to \Z$ & $x$ & $4b(a + b) + a^2$ & $(a + 2b)^2$ \\
+\hline
+$f_3 : \mathbb{P} \to \mathbb{P}$ & $1$ & $a$ & $a$ \\
+\hline
+$f_4 : \Z^+ \to \R$ & $x / 2$ & $a + b$ & $a + b$ \\
+\hline
+$f_5 : \Z^+ \to \R$ & $x / 2$ & $a \* b$ & $a \* b$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{General}
+
+$f : S \to S$ where:
+\label{inv_hom}
+\begin{itemize}
+\item $S$ is the set of elements of \emph{any} group $G = (S, \star)$
+\item $f(x) = x^{-1}$ (i.e. $f(x) =$ the inverse of $x$ in $G$)
+\item $a \star_1 b = a \star_2 b = a \star b$
+\end{itemize}
+
+\section{Semi-Generator}
+
+Suppose $g$ is a generator of a group $G$. (Recall: This means that the powers of $g$ include every element in $G$.)
+
+Show that $g^{-1}$ ``generates'' at least half the elements of $G$.\\
+
+(Hint: To convince yourself, try $G = (\Z_7, +)$ and $g=3$. Use problem \ref{inv_hom} to prove it for all groups.)
+
+
+
+\section{$\phi(N)$}
+
+Find a formula for finding $\phi(N)$ for any $N$ given its prime factorization.
+
+Calculate $\phi(N)$ for $N = 1$ to $30$ and check that it works.
+
+
+
+\section{Groups}
+
+For each of these, make sure you can justify every step using definition of a group. As a refresher, here is the definition of a group $G$ (often called the ``group axioms''):
+
+\begin{itemize}
+\item Identity: There is an ``identity'' $e \in G$ such that $e \star x = x$ for every $x \in G$.
+\item Inverses: For every $x \in G$, there is a $y \in G$ such that $x \star y = e$.
+\item Associativity: If $x, y, z \in G$ then $(x \star y) \star z = x \star (y \star z)$
+\item Closed: If $ \in G$ then $x \star y \in G$.
+\end{itemize}
+
+If $x \star y = y \star x$ for every $x, y \in G$, then $G$ is \emph{commutative}. Not every group is commutative, so \emph{you can't switch the order of elements around $\star$}.
+
+\subsection{}
+
+Suppose $a, b, x \in S$ are elements of any group $G = (S, \star)$. Prove that
+
+$$
+a \* x = b \* x ~~~~ \imp ~~~~ a = b
+$$
+
+
+\subsection{}
+
+Suppose $G$ is \emph{not} a commutative group: $a \star b$ may not be the same as $b \star a$ for every $a, b \in G$.
+
+Try to prove the following:
+
+\begin{itemize}
+\item $e$ is unique (Suppose there are two different identities. Show that they're the same.)
+\item $e \star a = a \imp a \star e = a$. (i.e. a ``left identity'' is also a ``right identity'')
+\item Suppose $x \in G$. Prove that $x \star y = e \imp y \star x = e$ (i.e. a ``right inverse'' is also a ``left inverse'').
+\end{itemize}
+
+
+
+For our course, we will usually be talking about commutative groups. If you ever take a group theory class, you will also see non-commutative groups.
+
+%\section{$D_4$}
+
+
+
+\section{Generators}
+
+\begin{itemize}
+\item How many elements are there in $(\Z_{1001}^*, \*)?$
+\item How many generators are there in $(\Z_{1001}^*, \*)?$
+\item Find a generator for $(\Z_n, +)$ for each $n$ from $1$ to as high as you can (at least $n=20$)
+\item Find all the generators $\mod 23$. (First find one. Use it to find all the rest.)
+\item Can you find a generator for $(\Z_{24}, +)$?
+\item Pick two primes around $20$ to $40$. Can you find a number that is a generator mod both primes?
+\end{itemize}
+
+
+\section{Using $DLP$ to break $CDH$}
+
+The Discrete Log Problem (DLP) is at least as hard as the Computational Diffie-Hellman Problem (CDH). We'll show this by demonstrating that your ability so solve the DLP allows you to solve CDH.
+
+Let's work with $G = (\Z_{19}^*, \*)$ and the generator $g = 14$.
+
+Finish filling in the list of powers of $g$ below. You can use it to solve the DLP (for base $g$ in the group $G$): by looking up a value in the bottom row, you can find the discrete log in the top row.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $ 6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ & $13$ & $14$ & $15$ & $16$ & $17$\\
+\hline
+$g^x$ & $1$ & $14$ & $6$ & & & & & & & & & & & & & & &\\
+\hline
+\end{tabular}
+\end{center}
+
+(Why doesn't the table have a column for $x = 18$?)\\\\
+
+Calculate the following:
+
+\begin{itemize}
+\item $DLOG_{14}(4) =$
+\item $DLOG_{14}(16) =$
+\item $DLOG_{14}(7) =$
+\end{itemize}
+
+Solve the Computational Diffie-Hellman (CDH) problem for these values:
+
+\begin{itemize}
+\item $(g, g^a, g^b) = (14, 8, 17)$ $\imp$ $g^{ab} =$
+\item $(g, g^a, g^b) = (14, 10, 8)$ $\imp$ $g^{ab} =$
+\item $(g, g^a, g^b) = (17, 2, 16)$ $\imp$ $g^{ab} =$
+\item $(g, g^a, g^b) = (13, 12, 8)$ $\imp$ $g^{ab} =$
+\end{itemize}
+
+
+Since you also found the values of $a$ and $b$, check that $(g^a)^b = (g^b)^a = g^{ab}$ for your answers.
+
+
+\begin{itemize}
+\item $137$
+\item $143$
+\item $56191$
+\item $890843293$
+\item $561$
+\item $1105$.
+\end{itemize}
+
+In this class, we will learn methods for testing whether a number is prime or not without factoring the number. As has been suggested by this problem, the above test is not a reliable one.
+
+\section{FLT Primality Test}
+
+
+In class today we learned Fermat's Little Theorem, which says that if $p$ is prime and $a$ any integer, then
+$$a^{p-1} = 1 \mod p.$$
+We can sometimes use this to tell that a number isn't prime. For example, $2^{754128} = 64667 \mod 754129$, so we know that $754129$ is not prime, without even factoring $754129 = 19^2 \times 2089$ (doing the latter is a tougher computation). We say that $g$ is a `witness' for $m$ if $g^{m-1} \neq 1 \mod m$ - telling us that $m$ is not prime. So in the example, $2$ is a witness for $m$. For the following numbers, determine whether the number is prime (you can do this by hand, but I would recommend using a computer - you can, for instance, ask your calculator or WolframAlpha 'factor $x$' if you want to factor $x$). If the number is not prime, try to find a witness for that number. You may again use a computer for this computation. If you don't think there are any witnesses for a given composite number, it is alright to stop.
+
+\begin{itemize}
+\item 137
+\item 143
+\item 56191
+\item 890843293
+\item 561
+\item 1105
+\end{itemize}
+
+
+\section{RSA}
+
+Run the entire RSA algorithm using a friend:
+
+\begin{itemize}
+\item Select primes $p$ and $q$ and compute $N = p \* q$
+\item Pick an exponent $e$ and find the inverse exponent $d$. (Find the inverse of $e$ mod $ \varphi(N)$. Recall that $\varphi(N) = (p-1) \* (q-1)$ and that you can use the Extended Euclidean Algorithm to find inverses).
+\item Ask your friend to select a message $m$ and send you $c = m^e$.
+\item Compute $c^d$ to decrypt the message.
+\end{itemize}
+
+
+\section{Extra RSA Problems}
+
+Ask Lucas for extra RSA problems. ;-)
+
+
+\section{Montgomery's Ladder}
+
+The ``obvious'' way to calculate $g^y \mod n$ gives away some information about the number we are exponentiating. Can you characterize what information is given away?
+
+Suppose the binary representation of $x$ has $x_i$ at the $2^i$'s place. Try the following for yesterday's homework problems:
+
+
+\begin{itemize}
+\item $a = g$, $b=x^2$
+\item For $i = k-2, k-3, ..., 0$:
+\begin{itemize}
+\item If $x_i = 0$
+\begin{itemize}
+\item $b = a \* b$
+\item $a = a^2$
+\end{itemize}
+\item If $x_i = 1$:
+\begin{itemize}
+\item $a = a \* b$
+\item $b = b^2$
+\end{itemize}
+\end{itemize}
+\item Output the final value of $a$.
+\end{itemize}
+
+Can you explain why it swords?
+
+\end{document}
