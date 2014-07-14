@@ -42,3 +42,32 @@ A few of the problems are taken from CS255.
 ## Lecture Notes
 
 Not included right now. Everything I have is hand-written on index cards. (It's good for planning out material in board-sized chunks!)
+
+## Syllabus
+
+See [Syllabus.md](./Syllabus.md) for more details.
+
+Here is the major topic for each day:
+
+### Week 1
+
+- Day 1: Introduction
+- Day 2: Diffie-Hellman
+- Day 3: RSA
+- Day 4: ElGamal Encryption
+- Day 5: Chinese Remainder Theorem
+
+### Week 2
+
+- Day 6: Birthday Paradox
+- Day 7: Perfect Secrecy
+- Day 8: More Perfect Secrecy
+- Day 9: Semantic Security / Advantage
+- Day 10: PRFs, PRPs, and Block Ciphers
+
+### Week 3
+
+- Day 11: More Block Ciphers, CBC-MAC
+- Day 12: More CBC-MAC
+- Day 13: Hash Functions
+- Day 14: Final Day / Extra Topics
