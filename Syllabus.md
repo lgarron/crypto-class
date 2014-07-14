@@ -4,6 +4,18 @@ Here is a listing of topics by day, as they were taught (in 2014). I would move 
 
 Also, some minor topics are omitted, and the relationship/justification of some topics is not detailed.
 
+
+## High-Level Course Description
+
+How can two people communicate secrets back and forth, even when a third party can eavesdrop on everything they say? Modern cryptography is an increasingly important field which allows us to answer this question by constructing ways to communciate securely. In this course, we looked at systems focused around three useful security features: ways to communicate without anyone else figuring out what we said (secrecy), to make sure that no one one can tamper with our discussion (integrity), and to identify whom we're talking to (identification).
+
+We began by studying cryptosystems that use number theory to establish secrecy. Students learned the mathematical ideas behind Diffie-Hellman, RSA, and ElGamal, which included a lot of hands-on experience with modular arithmetic, the extended Euclidean algorithm for computing modular inverses, and basic group theory. We also discussed the real-world applications of these systems in browser communications, as well the reasons we believe these systems are security: the difficulty of integer factorization vs. primality testing, and assumptions like the discrete log problem. We also learned how to apply these concepts to construct basic digital signatures, which are used to provide integrity and identification.
+
+The end of the course was focused on block ciphers, which handle the vast majority of encrypted data in the real world. We discussed the notion of advantage, which helps us calculate how secure a cryptosystem is, and used this to understand how pseudorandom permutations are used to build cryptosystems. This included the most popular encryption ciphers (counter mode and cipher-block chaining) as well as shared-key signatures (message authentication codes) and hash functions.
+
+Students spent 3 hours each day working on a variety of homework problems. These problem sets allowed them to get acquainted with the actual workings of each cipher before exploring ways to modify, apply, or break them. At the conclusion of this course, students could truthfully say that they understand (and can perform!) the important calculations that help us secure our communications on the internet every day.
+
+
 ## Day 1: Introduction (Monday)
 
 - Symmetric Cryptography vs. Public-Key Cryptography, Signatures
