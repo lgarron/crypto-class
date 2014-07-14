@@ -32,6 +32,7 @@ I also had access to preliminary notes and a syllabus from a previous iteration 
     - Simple key stretching for single-key AE.
  - Encrypting a file on the file system.
 
+In addition to the live code on the computer, I usually went over a concrete example (with small numbers) on the blackboard.
 
 ## Homeworks
 

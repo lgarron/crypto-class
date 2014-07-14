@@ -78,8 +78,6 @@ AES_DET_CTR_D = AES_DET_CTR_E
 
 
 
-###### Day Break
-
 
 
 

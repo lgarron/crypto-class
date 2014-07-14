@@ -1,6 +1,8 @@
 # Syllabus
 
-Here is a listing of topics by day. Some minor topics are omitted, and the relationship/justification of some topics is not detailed.
+Here is a listing of topics by day, as they were taught (in 2014). I would move some things around if I taught the course again.
+
+Also, some minor topics are omitted, and the relationship/justification of some topics is not detailed.
 
 ## Day 1: Introduction (Monday)
 
@@ -109,7 +111,7 @@ Here is a listing of topics by day. Some minor topics are omitted, and the relat
 - Initialization Vectors / Randomness
   - (Need for Semantic Security)
 - Block Size Padding
-
+- Live Coding: CTR Mode
 
 ## Day 11: More Block Ciphers, CBC-MAC (Monday)
 
@@ -121,6 +123,7 @@ Here is a listing of topics by day. Some minor topics are omitted, and the relat
 - MAC Security Game (Forgery Game)
 - Authenticated Encryption
   - Encrypt-then-MAC
+- Live coding: CBC
 
 
 ## Day 12: More CBC-MAC (Tuesday)
@@ -131,10 +134,16 @@ Here is a listing of topics by day. Some minor topics are omitted, and the relat
   - Bad: finalization using same key
   - (Bad: reusing CBC encryption key for CBC-MAC)
 - Modular One-Time MAC
+- Live coding
+  - CBC-MAC
 
 
 ## Day 13: Hash Functions (Wednesday)
 
+- Key Stretching
+- Live coding
+  - Authenticated Encryption
+  - AE with key stretching
 - OWFs, OWPs, trapdoor permutations
 - Hash Functions
   - Collision Resistance
