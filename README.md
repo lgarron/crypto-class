@@ -2,9 +2,9 @@
 
 Materials from teaching cryptography at a 3-week Stanford summer program for high school students (SPCS Summer Institutes, formerly EPGY), with 14 days of instruction from June 23, 2014 to July 10, 2014. The students all just finished 9th or 10th grade.
 
-Almost all of the course material is assembled together from scratch, with a slight focus on math, and a preference to work with actual constructions/numbers instead of full technical proofs (for example, see the mini PRPs in homeworks 11-13).
+Almost all of the course material is assembled from scratch, with a focus on math, and a preference to work with actual constructions/numbers instead of full technical proofs (for example, see the mini PRPs in homeworks 11-13).
 
-This sort of course is usually centered around number theory, but most of the advanced math is not of as much interest to practical cryptography. Thus, I focused on interesting/mathematical aspects of block ciphers on the second half of the course.
+This sort of course is usually centered around number theory, but I felt that focusing entirely on number theory is a disservice to modern cryptography. Therefore, I focused on interesting/mathematical aspects of block ciphers for the second half of the course.
 
 ## Credits
 
@@ -35,7 +35,7 @@ I also had access to preliminary notes and a syllabus from a previous iteration 
 
 ## Homeworks
 
-I had to create most of these "from scratch".
+I created most of these "from scratch".
 
 A few of the problems are taken from CS255.
 
